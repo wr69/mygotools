@@ -1,6 +1,9 @@
 package fileplus
 
 import (
+	"crypto/sha256"
+	"crypto/sha512"
+	"encoding/hex"
 	"net/url"
 	"strings"
 )
@@ -27,4 +30,30 @@ func UrlEscapeFilename(urlStr string) string {
 	filename = strings.ReplaceAll(filename, ":", "")
 
 	return filename
+}
+
+func UrlEscapeSha256(urlStr string) string {
+
+	// 计算 URL 的 SHA-256 哈希值
+	h := sha256.New()
+	h.Write([]byte(urlStr))
+	hashInBytes := h.Sum(nil)
+
+	// 将哈希值转换为16进制字符串
+	hashString := hex.EncodeToString(hashInBytes)
+
+	return hashString
+}
+
+func FileToSha512(content string) string {
+
+	// 计算 URL 的 SHA-512 哈希值
+	h := sha512.New()
+	h.Write([]byte(content))
+	hashInBytes := h.Sum(nil)
+
+	// 将哈希值转换为16进制字符串
+	hashString := hex.EncodeToString(hashInBytes)
+
+	return hashString
 }
