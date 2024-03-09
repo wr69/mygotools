@@ -27,6 +27,15 @@ func ReadPrivateKeyFromText(keyString string) (*rsa.PrivateKey, error) {
 	return privateKey, nil
 }
 
+func ReplacePrivateKeyFromText(keyString string) string {
+	replacedStr := keyString
+	replacedStr = strings.Replace(replacedStr, "-----BEGIN RSA PRIVATE KEY-----", "", 1)
+	replacedStr = strings.Replace(replacedStr, "-----END RSA PRIVATE KEY-----", "", 1)
+	replacedStr = strings.Replace(replacedStr, " ", "", -1)
+	replacedStr = strings.TrimSpace(replacedStr)
+	return "-----BEGIN RSA PRIVATE KEY-----\n" + replacedStr + "\n-----END RSA PRIVATE KEY-----"
+}
+
 func ReadPublicKeyFromText(keyString string) (*rsa.PublicKey, error) {
 	publicKeyFile := []byte(keyString)
 	block, _ := pem.Decode(publicKeyFile)
