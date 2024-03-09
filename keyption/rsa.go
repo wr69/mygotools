@@ -15,6 +15,7 @@ import (
 )
 
 var RSA_PUBLIC_KEY *rsa.PublicKey
+var RSA_PRIVATE_KEY *rsa.PrivateKey
 
 func ReadPrivateKeyFromText(keyString string) (*rsa.PrivateKey, error) {
 	privateKeyFile := []byte(keyString)
